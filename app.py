@@ -75,7 +75,8 @@ async def on_message(message: cl.Message):
         message_history.append({"role": "assistant", "content": response_message.content})
         cl.user_session.set("message_history", message_history)
     elif response_message.content.startswith("get_showtimes") :
-        message_history.append({"role": "system", "content": "Parse the movie title and zipcode from user message as JSON which can be recognize in Python. Example \"{\"title\": \"movie name\", \"zipcode\": \"12345\"}\""})
+        message_history.append({"role": "system", "content": "Parse the movie title and zipcode from user message as JSON which can be recognize in Python. Do not include ```JSON start & end delimiter. \
+                                JSON Example \"{\"title\": \"movie name\", \"zipcode\": \"12345\"}\""})
         response_message = await generate_response(client, message_history, gen_kwargs)
         message_history.append({"role": "assistant", "content": response_message.content})
         try:
@@ -98,7 +99,7 @@ async def on_message(message: cl.Message):
         response_message = await generate_response(client, message_history, gen_kwargs)
         message_history.append({"role": "assistant", "content": response_message.content})
         try:
-            print(">>>>>>>>>SHOWtimes", response_message.content)
+            print(">>>>>>>>>Buy Tiekcts", response_message.content)
             parsed_data = json.loads(response_message.content)
             theater = parsed_data.get('theater')
             title = parsed_data.get('title')
